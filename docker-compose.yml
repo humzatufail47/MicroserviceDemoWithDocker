@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  SqlServer:
+    image: mcr.microsoft.com/mssql/server:2017-latest 
+
+  microservice.user.api:
+    image: ${REGISTRY:-humzatufail17}/microserviceuserapi:${PLATFORM:-windows}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: MicroService.User.API/Dockerfile
+    depends_on: 
+      - SqlServer
+
+
+  microservice.user.order.api:
+    image: ${REGISTRY:-humzatufail17}/microserviceuserorderapi:${PLATFORM:-windows}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: MicroService.Users.Order.APIs/Dockerfile
+    depends_on: 
+      - SqlServer
+
+  microservice.user.product.api:
+    image: ${REGISTRY:-humzatufail17}/microserviceuserproductapi:${PLATFORM:-windows}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: MicroService.Users.Product.APIs/Dockerfile
+    depends_on: 
+      - SqlServer
+

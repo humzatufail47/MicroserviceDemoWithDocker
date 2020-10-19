@@ -1,0 +1,38 @@
+version: "3.4"
+
+services: 
+  SqlServer:
+    environment: 
+      - "ACCEPT_EULA=Y"
+      - "SA_PASSWORD=humza@123"
+    ports: 
+      - "1453:1433"
+  
+  microservice.user.api:
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - connectionString=${USERSAPIS_DATABASE_URL}
+    ports: 
+      - "50000:80"
+      - "50001:443"
+    container_name: UsersApis
+  
+  microservice.user.order.api:
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - connectionString=${ORDERAPIS_DATABASE_URL}
+      - PRODUCT_API_URL=http://0.0.0.0:50004
+      - USER_API_URL=http://0.0.0.0:50000
+    ports: 
+      - "50002:80"
+      - "50003:443"
+    container_name: OrderApis
+
+  microservice.user.product.api:
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - connectionString=${PRODUCTAPIS_DATABASE_URL}
+    ports: 
+      - "50004:80"
+      - "50005:443"
+    container_name: productApis
