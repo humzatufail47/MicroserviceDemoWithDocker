@@ -21,8 +21,8 @@ services:
     environment: 
       - ASPNETCORE_ENVIRONMENT=Development
       - connectionString=${ORDERAPIS_DATABASE_URL}
-      - PRODUCT_API_URL=http://0.0.0.0:50004
-      - USER_API_URL=http://0.0.0.0:50000
+      - PRODUCT_API_URL=http://host.docker.internal:50004
+      - USER_API_URL=http://host.docker.internal:50000
     ports: 
       - "50002:80"
       - "50003:443"

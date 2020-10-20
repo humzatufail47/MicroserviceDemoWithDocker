@@ -51,9 +51,9 @@ namespace MicroService.Users.Order.APIs.Controllers
 
             var ProductClinet = _httpClientFactory.CreateClient("ProductApi");
             ProductClinet.BaseAddress = new Uri(_configuration["PRODUCT_API_URL"]);
-            var result1 = await usersClinet.GetAsync($"/api/getById/{orderdata.CustomerId}");
-            var stream1 = await result.Content.ReadAsStringAsync();
-            var ProductData = JsonConvert.DeserializeObject<ProductInfo>(stream);
+            var result1 = await ProductClinet.GetAsync($"/api/getById/{orderdata.CustomerId}");
+            var stream1 = await result1.Content.ReadAsStringAsync();
+            var ProductData = JsonConvert.DeserializeObject<ProductInfo>(stream1);
             return Ok(new OrderInfo()
             {
                 Age = CustomerData.Age,
